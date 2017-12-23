@@ -1,8 +1,9 @@
-package com.openworld.world;
+package com.openworld.world.entity;
 
 import java.io.Serializable;
 
 import com.openworld.util.world.Location3D;
+import com.openworld.world.World;
 
 public class Entity implements Serializable {
 

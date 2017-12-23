@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.openworld.world.entity.Entity;
+
 public class World implements Serializable {
 	
 	/**
