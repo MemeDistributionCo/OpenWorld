@@ -21,11 +21,6 @@ public class World implements Serializable {
 	public String getWorldName() {
 		return this.worldName;
 	}
-	
-	
-	public boolean containsChunk(WorldChunk c) {
-		return true;
-	}
 
 	
 	public Set<Entity> getEntities() {
