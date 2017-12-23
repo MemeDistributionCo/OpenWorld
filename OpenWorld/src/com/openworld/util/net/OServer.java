@@ -65,7 +65,8 @@ public class OServer {
 		Stack<Socket> disconnected = new Stack<Socket>();
 		while (started && !ended) {
 			for(Socket s : connections) {
-				if(s.isClosed() || !s.isConnected()) {
+				if(!isClientConnected(s)) {
+//This doesn't work, need a new way to check for connection drop
 					disconnected.push(s);
 					continue;
 				}
@@ -74,6 +75,7 @@ public class OServer {
 			//Might need to do something faster later maybe, for now it's fine
 			for(Socket s : disconnected) {
 				connections.remove(s);
+				System.out.println(s + " disconnected");
 			}
 			disconnected.clear();
 		}
@@ -113,6 +115,21 @@ public class OServer {
 		incomingConnection = cp.enact(incomingConnection);
 		if(incomingConnection != null)
 			connections.add(incomingConnection);
+	}
+	
+	private boolean isClientConnected(Socket clientSocket) {
+		try {
+			int to = clientSocket.getSoTimeout();
+			clientSocket.setSoTimeout(1000);
+			if(clientSocket.getInputStream().read() == -1) {
+				return false;
+			}
+			clientSocket.setSoTimeout(to);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 	
 	

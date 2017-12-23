@@ -21,8 +21,8 @@ public class ConnectionProtocol implements OProtocol {
 			} else {
 				HandshakePacket hp = (HandshakePacket)clientPacket;
 				System.out.println("Socket " + s + " sent valid packet. Handshake: " + hp.getMessage());
+				s.setSoTimeout(to);
 			}
-			s.setSoTimeout(to);
 		} catch (IOException e) {
 			e.printStackTrace();
 			s = null;
